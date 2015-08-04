@@ -1,9 +1,15 @@
 FROM php:5.6-fpm
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && apt-get -q -y install ssmtp mailutils \
+        && rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
 	&& docker-php-ext-install gd
+
+# ssmtp for mail
+ADD ssmtpinit /usr/local/bin/ssmtpinit
+RUN chmod +x /usr/local/bin/ssmtpinit
+
 RUN docker-php-ext-install mysqli
 
 VOLUME /var/www/html

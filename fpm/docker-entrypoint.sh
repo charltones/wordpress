@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# setup email sending via ssmtp
+. /usr/local/bin/ssmtpinit
+
 if [ -n "$MYSQL_PORT_3306_TCP" ]; then
 	if [ -z "$WORDPRESS_DB_HOST" ]; then
 		WORDPRESS_DB_HOST='mysql'
