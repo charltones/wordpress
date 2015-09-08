@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && apt-get -q 
 # ssmtp for mail
 ADD ssmtpinit /usr/local/bin/ssmtpinit
 RUN chmod +x /usr/local/bin/ssmtpinit
+RUN echo "sendmail_path=sendmail -t -i" > /usr/local/etc/php/conf.d/sendmail.ini
 
 RUN docker-php-ext-install mysqli
 
